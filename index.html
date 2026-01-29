@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>CodeStart — Онлайн обучение программированию</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background: radial-gradient(circle at top left, #1f2230, #0f1117 60%);
+  color:#e6e6e6;
+}
+
+.card{
+  background: rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  border-radius:16px;
+  padding:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  margin-bottom:20px;
+}
+
+h1,h2,h3{
+  letter-spacing:0.5px;
+}
+
+h1{
+  font-size:32px;
+  background: linear-gradient(45deg,#00e676,#00bcd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.card, section, .lesson-box{
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+
+/* ===== ВЕРХНЕЕ МЕНЮ ===== */
+.top-menu{
+  position:fixed;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  width:92%;
+  max-width:1200px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(20,22,30,0.75);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.45);
+  z-index:1000;
+}
+
+
+.logo{
+  font-weight:700;
+  font-size:22px;
+  color:#00e676;
+}
+
+.menu-links{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.menu-links a{
+  text-decoration:none;
+  color:#e0e0e0;
+  font-weight:600;
+  padding:7px 12px;
+  border-radius:8px;
+  transition:0.25s;
+  font-size:14px;
+  white-space:nowrap;
+}
+
+.menu-links a:hover{
+  background:#00e676;
+  color:#000;
+}
+
+/* ===== ГЛАВНЫЙ БЛОК ===== */
+.hero{
+  padding-top:140px;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:42px;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:#bbb;
+  margin-bottom:30px;
+  font-size:18px;
+}
+
+.main-buttons{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:14px 22px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.2s;
+}
+
+.btn-primary{
+  background:linear-gradient(45deg,#00e676,#00c853);
+  color:#000;
+}
+
+.btn-secondary{
+  border:2px solid #00e676;
+  color:#00e676;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+/* ===== БЛОК КУРСОВ ===== */
+.courses{
+  margin-top:80px;
+  padding:40px 20px;
+  max-width:1000px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.course-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+  margin-top:30px;
+}
+
+.course-card{
+  background:#2a2c36;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  transition:0.2s;
+}
+
+.course-card:hover{
+  transform:translateY(-5px);
+}
+
+.course-card h3{
+  margin-top:0;
+}
+
+.course-card a{
+  display:inline-block;
+  margin-top:15px;
+  color:#00e676;
+  text-decoration:none;
+  font-weight:600;
+}
+.profile-btn{
+  background:linear-gradient(45deg,#00e676,#00c853);
+  color:#000 !important;
+  padding:7px 14px !important;
+  border-radius:8px;
+}
+
+.profile-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 15px rgba(0,230,118,0.4);
+}
+
+/* ===== ЧТО ТЫ ИЗУЧИШЬ ===== */
+.skills{
+  margin-top:100px;
+  padding:60px 20px;
+  max-width:1100px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+
+.skills h2{
+  font-size:32px;
+  margin-bottom:10px;
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.skills-sub{
+  color:#aaa;
+  margin-bottom:40px;
+}
+
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+.skill-card{
+  background:#2a2c36;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  text-align:left;
+  transition:0.25s;
+}
+
+.skill-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.4);
+}
+
+.skill-card h3{
+  margin-top:0;
+  margin-bottom:10px;
+  color:#00e676;
+}
+
+.skill-card p{
+  color:#ccc;
+  line-height:1.6;
+}
+
+.menu-links a.active{
+  background:#00e676;
+  color:#000;
+}
+
+/* ===== WHY CODESTART ===== */
+
+.features{
+  max-width:1000px;
+  margin:100px auto;
+  padding:40px 20px;
+  text-align:center;
+}
+
+.features h2{
+  margin-bottom:40px;
+}
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+
+.feature-card{
+  background:#2a2c36;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  transition:0.25s;
+}
+
+.feature-card:hover{
+  transform:translateY(-6px);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔝 ВЕРХНЕЕ МЕНЮ -->
+<div class="top-menu">
+  <div class="logo">CodeStart</div>
+  <div class="menu-links">
+    <a href="index.html">Главная</a>
+    <a href="#" onclick="goToLessons()">Обучение</a>
+    <a href="subscribe.html">Подписка</a>
+    <a href="#" onclick="openProfile()" class="profile-btn" id="profileBtn">Профиль</a>
+  </div>
+</div>
+
+<!-- 🔥 ГЛАВНЫЙ ЭКРАН -->
+<section class="hero">
+  <h1 id="heroTitle">Научись программировать с нуля</h1>
+  <p id="heroSub">Интерактивные уроки, практика и реальные навыки</p>
+
+  <div class="main-buttons">
+    <a href="#courses" class="btn btn-primary">Начать обучение</a>
+    <a href="subscribe.html" class="btn btn-secondary">Посмотреть подписки</a>
+  </div>
+</section>
+
+<!-- 📚 КУРСЫ -->
+<section class="courses" id="courses">
+  <h2 style="text-align:center;">Популярные курсы</h2>
+
+  <div class="course-grid">
+
+    <div class="course-card">
+      <h3>HTML для новичков</h3>
+      <p>Изучишь основу создания сайтов</p>
+      <a href="#" onclick="goToLessons()">Перейти к урокам →</a>
+    </div>
+
+    <div class="course-card">
+      <h3>CSS — Красивые сайты</h3>
+      <p>Научишься делать стильные страницы</p>
+      <a href="#" onclick="goToLessons()">Открыть курс →</a>
+    </div>
+
+    <div class="course-card">
+      <h3>JavaScript (скоро)</h3>
+      <p>Оживляй сайты и делай логику</p>
+      <a href="#">Скоро доступно</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 🚀 ЧТО ТЫ ИЗУЧИШЬ -->
+<section class="skills">
+  <h2>Что ты сможешь создавать после обучения</h2>
+  <p class="skills-sub">Мы не учим теорию ради теории — ты будешь делать реальные проекты</p>
+
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <h3>🌐 HTML — Структура сайтов</h3>
+      <p>Научишься создавать сайты с нуля: заголовки, текст, картинки, кнопки, формы и полноценные страницы.</p>
+    </div>
+
+    <div class="skill-card">
+      <h3>🎨 CSS — Красота и стиль</h3>
+      <p>Сделаешь сайты современными: цвета, анимации, адаптация под телефон, красивые кнопки и блоки.</p>
+    </div>
+
+    <div class="skill-card">
+      <h3>⚡ JavaScript — Магия интерактива</h3>
+      <p>Добавишь логику: всплывающие окна, проверки форм, игры, калькуляторы и живые интерфейсы.</p>
+    </div>
+
+    <div class="skill-card">
+      <h3>🧠 Логика программиста</h3>
+      <p>Научишься думать как разработчик: решать задачи, строить алгоритмы и писать чистый код.</p>
+    </div>
+
+    <div class="skill-card">
+      <h3>💼 Реальные проекты</h3>
+      <p>В портфолио появятся настоящие работы, которые можно показать заказчику или работодателю.</p>
+    </div>
+
+    <div class="skill-card">
+      <h3>🚀 Путь к профессии</h3>
+      <p>После курса ты сможешь брать первые заказы, делать сайты на фрилансе или двигаться в сторону работы разработчиком.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="features">
+  <h2>Почему выбирают CodeStart?</h2>
+
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <h3>🧠 Понятно даже новичку</h3>
+      <p>Объясняем сложные вещи простым языком без скучной теории</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>💻 Практика с первого урока</h3>
+      <p>Ты не просто читаешь — ты сразу пишешь код и видишь результат</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>📈 Отслеживание прогресса</h3>
+      <p>Профиль показывает твой уровень, достижения и пройденные уроки</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>🏆 Система достижений</h3>
+      <p>Проходи уроки, получай награды и повышай свой уровень разработчика</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+function goToLessons(){
+    const user = localStorage.getItem("currentUser");
+
+    if(!user){
+        alert("Сначала зарегистрируйся или войди в аккаунт");
+        window.location.href = "auth.html";
+    } else {
+        window.location.href = "lesson.html";
+    }
+}
+</script>
+<script>
+function openProfile(){
+    const user = localStorage.getItem("currentUser");
+
+    if(user){
+        window.location.href = "profile.html";
+    } else {
+        window.location.href = "auth.html";
+    }
+}
+</script>
+
+<script>
+const currentUserEmail = localStorage.getItem("currentUser");
+
+if(currentUserEmail){
+    const userData = JSON.parse(localStorage.getItem("user_" + currentUserEmail));
+    if(userData && userData.name){
+        document.getElementById("profileBtn").innerHTML = "👤 " + userData.name;
+    }
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem("currentUser");
+    if(!email) return;
+
+    const user = JSON.parse(localStorage.getItem("user_" + email));
+    if(!user) return;
+
+    const heroTitle = document.getElementById("heroTitle");
+    const heroSub = document.getElementById("heroSub");
+
+    heroTitle.innerHTML = `Привет, ${user.name} 👋`;
+    heroSub.innerHTML = "Продолжим обучение? Ты уже на пути к профессии разработчика 🚀";
+});
+</script>
+
+<script>
+const links = document.querySelectorAll(".menu-links a");
+const currentPage = location.pathname.split("/").pop();
+
+links.forEach(link => {
+  if(link.getAttribute("href") === currentPage){
+    link.classList.add("active");
+  }
+});
+</script>
+
+</body>
+</html>

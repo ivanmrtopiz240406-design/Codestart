@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Урок 1 — Основы HTML | CodeStart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* СТИЛИ ТВОИ НЕ ТРОГАЮ */
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0,230,118,0.08), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,188,212,0.08), transparent 40%),
+      linear-gradient(135deg,#14151c,#1b1d27 40%,#12131a);
+    color:#e6e6e6;
+}
+.top-menu{
+  position:fixed; top:0; left:0; width:100%;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:15px 30px;
+  background:rgba(10,12,18,0.85);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  z-index:1000;
+}
+.logo{
+  font-weight:700;
+  font-size:22px;
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.menu-links{display:flex;gap:14px;}
+.menu-links a{
+  text-decoration:none;
+  color:#cfcfcf;
+  font-weight:600;
+  padding:8px 16px;
+  border-radius:10px;
+  border:1px solid transparent;
+  transition:0.25s;
+}
+.menu-links a:hover,
+.menu-links a.active{
+  color:#00e676;
+  border:1px solid #00e676;
+  background:rgba(0,230,118,0.12);
+}
+
+section{max-width:1000px;margin:auto;padding:130px 20px 60px;}
+h1{text-align:center;font-size:36px;margin-bottom:10px;}
+.progress{text-align:center;color:#8a8f98;margin-bottom:30px;}
+
+.lesson-box{
+    background:linear-gradient(145deg,#1c1f2b,#151822);
+    padding:35px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.05);
+    box-shadow:0 15px 40px rgba(0,0,0,0.45);
+    line-height:1.9;
+    font-size:17px;
+}
+
+.tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.tab-btn{
+    padding:8px 14px;border-radius:8px;border:1px solid #2a2d3a;
+    cursor:pointer;background:#1a1d29;color:#cfcfcf;
+}
+.tab-btn.active{border-color:#00e676;color:#00e676;}
+.tab-content{display:none;margin-top:10px;}
+.tab-content.active{display:block;}
+
+pre{
+    background:#0f1117;padding:16px;border-radius:12px;
+    color:#00ff88;border:1px solid rgba(0,230,118,0.25);
+    overflow:auto;
+}
+
+textarea{
+    width:100%;height:200px;background:#0f1117;color:#00ff88;
+    border:2px solid #1f2230;border-radius:12px;padding:15px;
+    font-family:monospace;font-size:14px;margin-top:15px;
+}
+button{
+    background:linear-gradient(45deg,#00e676,#00c853);
+    border:none;padding:12px 18px;border-radius:10px;
+    font-weight:bold;cursor:pointer;margin-top:12px;
+}
+button:hover{transform:scale(1.05);}
+
+#previewWrapper{display:none;margin-top:20px;border-radius:12px;overflow:hidden;max-width:500px;}
+.browser-bar{background:#2d2f36;padding:6px 10px;display:flex;gap:6px;}
+.dot{width:10px;height:10px;border-radius:50%;}
+.red{background:#ff5f56;} .yellow{background:#ffbd2e;} .green{background:#27c93f;}
+#previewBox{background:#fff;color:#111;padding:20px;min-height:100px;}
+
+#console{background:#000;color:#00ff88;padding:15px;margin-top:15px;border-radius:8px;font-family:monospace;}
+.tip{color:#00bcd4;} .bad{color:#ff5252;} .ok{color:#4CAF50;} .win{color:#FFD700;}
+
+#achievementPopup{
+    position:fixed;top:100px;right:20px;
+    background:linear-gradient(45deg,#ffd700,#ff9800);
+    color:#000;padding:15px 20px;border-radius:10px;
+    font-weight:bold;display:none;z-index:2000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-menu">
+  <div class="logo">CodeStart</div>
+  <div class="menu-links">
+    <a href="index.html">Главная</a>
+    <a href="lesson.html" class="active">Обучение</a>
+    <a href="subscribe.html">Подписка</a>
+    <a href="#" onclick="openProfile()">Профиль</a>
+  </div>
+</div>
+
+<div id="achievementPopup">🏆 Достижение получено!</div>
+
+<section>
+<h1>Урок 1: HTML с полного нуля</h1>
+<div class="progress">Шаг 1 из 10 • Разберётся даже самый новичок</div>
+
+<div class="lesson-box">
+
+<div class="tabs">
+  <div class="tab-btn active" onclick="openTab(0)">Как работает HTML</div>
+  <div class="tab-btn" onclick="openTab(1)">Что такое теги</div>
+  <div class="tab-btn" onclick="openTab(2)">Практика</div>
+</div>
+
+<div class="tab-content active">
+  <h2>🌍 Как создаётся любая страница</h2>
+  <p>HTML — это язык разметки. Он не программирует поведение, а описывает структуру страницы.</p>
+
+  <p>Каждая страница начинается с объявления типа документа:</p>
+  <pre>&lt;!DOCTYPE html&gt;</pre>
+  <p>Это говорит браузеру: "перед тобой современный HTML5 документ".</p>
+
+  <p>Дальше идёт главный контейнер всей страницы:</p>
+  <pre>&lt;html&gt; ... &lt;/html&gt;</pre>
+
+  <p>Внутри него две части:</p>
+  <pre>&lt;head&gt; — служебная информация (невидима)
+&lt;body&gt; — всё что ВИДИТ пользователь</pre>
+</div>
+
+<div class="tab-content">
+  <h2>🏷 Что такое теги?</h2>
+  <p><b>Тег</b> — это команда браузеру. Он говорит: "это заголовок", "это текст", "это кнопка".</p>
+
+  <p>Тег состоит из:</p>
+  <pre>&lt;тег&gt; содержимое &lt;/тег&gt;</pre>
+
+  <p>Первая часть — открывающий тег. Вторая со слэшем — закрывающий.</p>
+
+  <p>Примеры:</p>
+
+  <p><b>&lt;h1&gt;</b> — самый главный заголовок на странице</p>
+  <pre>&lt;h1&gt;Добро пожаловать&lt;/h1&gt;</pre>
+
+  <p><b>&lt;p&gt;</b> — обычный текст (абзац)</p>
+  <pre>&lt;p&gt;Это мой первый сайт&lt;/p&gt;</pre>
+
+  <p><b>&lt;button&gt;</b> — кнопка</p>
+  <pre>&lt;button&gt;Нажми меня&lt;/button&gt;</pre>
+
+  <p>Всё это пишется ВНУТРИ &lt;body&gt;</p>
+</div>
+
+<div class="tab-content">
+  <h2>💻 Практика</h2>
+  <p>Напиши СВОЮ страницу. Пример структуры ниже 👇</p>
+
+  <pre>
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Мой сайт&lt;/h1&gt;
+    &lt;p&gt;Я изучаю HTML&lt;/p&gt;
+    &lt;button&gt;Жми&lt;/button&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+  </pre>
+
+  <textarea id="codeInput"></textarea>
+  <button onclick="showPreview()">👀 Посмотреть результат</button>
+  <button onclick="checkCode()">✔ Проверить код</button>
+
+  <div id="previewWrapper">
+    <div class="browser-bar">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+    <div id="previewBox"></div>
+  </div>
+
+  <div id="console"></div>
+</div>
+
+</div>
+</section>
+
+<script>
+function openTab(i){
+  document.querySelectorAll(".tab-btn").forEach((b,idx)=>b.classList.toggle("active",idx===i));
+  document.querySelectorAll(".tab-content").forEach((c,idx)=>c.classList.toggle("active",idx===i));
+}
+
+function showPreview(){
+  const code=document.getElementById("codeInput").value;
+  document.getElementById("previewWrapper").style.display="block";
+  document.getElementById("previewBox").innerHTML=code;
+}
+
+function log(msg,cls=""){document.getElementById("console").innerHTML+=`<div class="${cls}">${msg}</div>`;}
+
+function checkCode(){
+  const code=document.getElementById("codeInput").value.toLowerCase();
+  const consoleBox=document.getElementById("console");
+  consoleBox.innerHTML="";
+
+  log("Пример правильной структуры выше — сверяйся с ним 👆","tip");
+
+  let ok=0;
+  if(code.includes("<html")){log("✔ Есть html — страница начинается правильно","ok");ok++;} else log("✖ Нет html","bad");
+  if(code.includes("<body")){log("✔ Есть body — контент будет виден","ok");ok++;} else log("✖ Нет body","bad");
+  if(code.includes("<h1")){log("✔ Есть заголовок","ok");ok++;} else log("✖ Нет h1","bad");
+  if(code.includes("<p")){log("✔ Есть текст","ok");ok++;} else log("✖ Нет p","bad");
+  if(code.includes("<button")){log("✔ Есть кнопка","ok");ok++;} else log("✖ Нет button","bad");
+
+  if(ok===5){completeLesson();}
+}
+
+function completeLesson(){
+  const email = localStorage.getItem("currentUser");
+  if(!email) return;
+
+  const key = "user_" + email;
+  let user = JSON.parse(localStorage.getItem(key));
+  if(!user) return;
+
+  if(!user.lessonsCompleted.includes("HTML Урок 1")){
+      user.lessonsCompleted.push("HTML Урок 1");
+      user.xp += 50;
+
+      const achievement = "🏆 Первая HTML страница";
+      if(!user.achievements.includes(achievement)){
+          user.achievements.push(achievement);
+          document.getElementByById("achievementPopup").style.display = "block";
+      }
+
+      // 💚 ГОВОРИМ СТРАНИЦЕ LESSON ЧТО УРОК ПРОЙДЕН
+      localStorage.setItem("completed_html1", "true");
+
+      log("🎉 Урок 1 пройден! Отличное начало!", "win");
+  } else {
+      log("ℹ️ Этот урок уже был пройден ранее", "tip");
+  }
+
+  localStorage.setItem(key, JSON.stringify(user));
+}
+function checkCode(){
+if(ok === 5){
+   completeLesson();
+}
+
+
+function openProfile(){
+  window.location.href = localStorage.getItem("currentUser")
+    ? "profile.html"
+    : "auth.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Подписка — CodeStart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#1e1f26,#232530);
+  color:#fff;
+}
+
+/* 🌈 ВЕРХНЕЕ МЕНЮ В СТИЛЕ CODESTART */
+/* ====== CODESTART TOP MENU ====== */
+.top-menu{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 40px;
+  background:linear-gradient(90deg,#11131a,#151822);
+  backdrop-filter:blur(12px);
+  box-shadow:0 6px 25px rgba(0,0,0,0.45);
+  z-index:1000;
+  box-sizing:border-box;
+}
+
+.logo{
+  font-weight:700;
+  font-size:22px;
+  color:#00e676;
+  letter-spacing:1px;
+}
+
+.menu-links{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+/* КНОПКИ МЕНЮ */
+.menu-links a{
+  text-decoration:none;
+  color:#e6e6e6;
+  font-weight:600;
+  padding:8px 16px;
+  border-radius:10px;
+  font-size:14px;
+  transition:all 0.25s ease;
+  border:1px solid transparent;
+  white-space:nowrap;
+}
+
+/* 💚 НАВЕДЕНИЕ — ЗЕЛЁНАЯ ОБВОДКА */
+.menu-links a:hover{
+  color:#00e676;
+  border:1px solid #00e676;
+  background:rgba(0,230,118,0.08);
+}
+
+/* АКТИВНАЯ СТРАНИЦА */
+.menu-links a.active{
+  color:#00e676;
+  border:1px solid #00e676;
+  background:rgba(0,230,118,0.12);
+}
+
+/* КОНТЕЙНЕР */
+.container{
+  padding-top:140px;
+  max-width:1100px;
+  margin:auto;
+  padding-bottom:80px;
+  text-align:center;
+}
+
+h1{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  color:#aaa;
+  margin-bottom:50px;
+  font-size:16px;
+}
+
+/* КАРТОЧКИ */
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+.plan{
+  background:linear-gradient(145deg,#262833,#2f3240);
+  border-radius:18px;
+  padding:30px 25px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.4);
+  transition:0.35s;
+  position:relative;
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+.plan:hover{
+  transform:translateY(-10px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+.plan h2{
+  margin-top:0;
+  font-size:22px;
+}
+
+.price{
+  font-size:36px;
+  font-weight:700;
+  margin:15px 0;
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.plan ul{
+  list-style:none;
+  padding:0;
+  text-align:left;
+  margin:20px 0;
+}
+
+.plan ul li{
+  margin-bottom:10px;
+  color:#ccc;
+}
+
+/* КНОПКИ */
+.plan button{
+  background:linear-gradient(45deg,#00e676,#00c853);
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  width:100%;
+  margin-top:10px;
+  transition:0.25s;
+  font-size:15px;
+}
+
+.plan button:hover{
+  transform:scale(1.07);
+  box-shadow:0 0 15px rgba(0,230,118,0.5);
+}
+
+/* ЛУЧШИЙ ТАРИФ */
+.popular{
+  border:2px solid #00e676;
+}
+
+.popular::before{
+  content:"🔥 ЛУЧШИЙ ВЫБОР";
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  color:#000;
+  font-size:12px;
+  font-weight:bold;
+  padding:4px 12px;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-menu">
+  <div class="logo">CodeStart</div>
+  <div class="menu-links">
+    <a href="index.html">Главная</a>
+    <a href="lesson.html">Обучение</a>
+    <a href="subscribe.html" class="active">Подписка</a>
+    <a href="profile.html" id="profileLink">Профиль</a>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Выбери свою подписку</h1>
+  <div class="subtitle">Открой все уроки и начни путь в программировании 🚀</div>
+
+  <div class="pricing">
+
+    <div class="plan">
+      <h2>Старт</h2>
+      <div class="price">$2</div>
+      <ul>
+        <li>Доступ к платным урокам</li>
+        <li>Базовые практические задания</li>
+        <li>Поддержка начинающих</li>
+      </ul>
+      <button onclick="buySub()">Купить подписку</button>
+    </div>
+
+    <div class="plan popular">
+      <h2>Оптимальный</h2>
+      <div class="price">$5</div>
+      <ul>
+        <li>Все уроки без ограничений</li>
+        <li>Интерактивные задания</li>
+        <li>Пошаговые проекты</li>
+        <li>Быстрый рост навыков</li>
+      </ul>
+      <button onclick="buySub()">Купить подписку</button>
+    </div>
+
+    <div class="plan">
+      <h2>Профи</h2>
+      <div class="price">$10</div>
+      <ul>
+        <li>Всё из тарифа “Оптимальный”</li>
+        <li>Сложные проекты как у разработчиков</li>
+        <li>Подготовка к фрилансу</li>
+        <li>Будущие продвинутые курсы</li>
+      </ul>
+      <button onclick="buySub()">Купить подписку</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function openProfile(){
+    const user = localStorage.getItem("currentUser");
+    if(user){
+        window.location.href = "profile.html";
+    } else {
+        window.location.href = "auth.html";
+    }
+}
+
+function buySub(){
+    localStorage.setItem("subscription", "active");
+    alert("Подписка успешно оформлена!");
+    window.location.href = "lesson.html";
+}
+</script>
+
+<script>
+const currentUserEmail = localStorage.getItem("currentUser");
+
+if(currentUserEmail){
+    const userData = JSON.parse(localStorage.getItem("user_" + currentUserEmail));
+    if(userData && userData.name){
+        document.getElementById("profileLink").innerText = "👤 " + userData.name;
+    }
+}
+</script>
+
+</body>
+</html>

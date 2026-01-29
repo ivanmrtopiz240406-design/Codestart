@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Профиль — CodeStart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,230,118,0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0,188,212,0.08), transparent 40%),
+    linear-gradient(135deg,#14151c,#1b1d27 40%,#12131a);
+  color:#fff;
+}
+
+/* ===== ВЕРХНЕЕ МЕНЮ В СТИЛЕ CODESTART ===== */
+/* ====== CODESTART TOP MENU ====== */
+.top-menu{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 40px;
+  background:linear-gradient(90deg,#11131a,#151822);
+  backdrop-filter:blur(12px);
+  box-shadow:0 6px 25px rgba(0,0,0,0.45);
+  z-index:1000;
+  box-sizing:border-box;
+}
+
+.logo{
+  font-weight:700;
+  font-size:22px;
+  color:#00e676;
+  letter-spacing:1px;
+}
+
+.menu-links{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+/* КНОПКИ МЕНЮ */
+.menu-links a{
+  text-decoration:none;
+  color:#e6e6e6;
+  font-weight:600;
+  padding:8px 16px;
+  border-radius:10px;
+  font-size:14px;
+  transition:all 0.25s ease;
+  border:1px solid transparent;
+  white-space:nowrap;
+}
+
+/* 💚 НАВЕДЕНИЕ — ЗЕЛЁНАЯ ОБВОДКА */
+.menu-links a:hover{
+  color:#00e676;
+  border:1px solid #00e676;
+  background:rgba(0,230,118,0.08);
+}
+
+/* АКТИВНАЯ СТРАНИЦА */
+.menu-links a.active{
+  color:#00e676;
+  border:1px solid #00e676;
+  background:rgba(0,230,118,0.12);
+}
+
+/* 👤 ИКОНКА ПРОФИЛЯ */
+.profile-badge{
+  min-width:38px;
+  height:38px;
+  padding:0 12px;
+  border-radius:50px;
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:#000;
+  cursor:pointer;
+  box-shadow:0 0 12px rgba(0,230,118,0.5);
+  font-size:14px;
+}
+
+/* ===== ОСНОВА ===== */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:130px 20px 60px;
+}
+
+.profile-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:25px;
+}
+
+/* ===== КАРТОЧКИ В СТИЛЕ CODESTART ===== */
+.card{
+  background:linear-gradient(145deg,#1c1f2b,#151822);
+  padding:25px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 10px 25px rgba(0,0,0,0.45);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 15px 35px rgba(0,230,118,0.15);
+  border:1px solid rgba(0,230,118,0.25);
+}
+
+.card h2{
+  margin-top:0;
+  margin-bottom:15px;
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ПОЛЯ */
+.profile-input{
+  background:#1a1c23;
+  border:1px solid #333;
+  color:#fff;
+  font-size:15px;
+  font-weight:600;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  margin-bottom:12px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+}
+
+/* КНОПКИ */
+button{
+  background:linear-gradient(45deg,#00e676,#00c853);
+  border:none;
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:5px;
+  transition:0.2s;
+}
+
+button:hover{ transform:scale(1.05); }
+
+.logout{
+  background:linear-gradient(45deg,#ff5252,#ff1744);
+}
+
+/* ДОСТИЖЕНИЯ */
+.badge{
+  display:inline-block;
+  background:linear-gradient(45deg,#ff9800,#ffd54f);
+  color:#000;
+  padding:8px 12px;
+  border-radius:10px;
+  margin:6px 6px 0 0;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* УРОКИ */
+.lesson-done{
+  background:#1b5e20;
+  padding:8px 10px;
+  border-radius:8px;
+  margin-bottom:6px;
+  font-weight:600;
+  box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+
+.level{
+  font-size:20px;
+  font-weight:700;
+  color:#ffd54f;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-menu">
+  <div class="logo">CodeStart</div>
+  <div class="menu-links">
+    <a href="index.html">Главная</a>
+    <a href="lesson.html">Обучение</a>
+    <a href="subscribe.html">Подписка</a>
+    <div class="profile-badge" id="profileBadge" onclick="location.href='profile.html'">?</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="profile-grid">
+
+    <div class="card">
+      <h2>👤 Личная информация</h2>
+      <label>Имя</label>
+      <input type="text" id="nameInput" class="profile-input">
+
+      <label>Email</label>
+      <input type="email" id="emailInput" class="profile-input">
+
+      <button onclick="saveProfile()">💾 Сохранить</button>
+      <button class="logout" onclick="logout()">🚪 Выйти</button>
+    </div>
+
+    <div class="card">
+      <h2>🔒 Смена пароля</h2>
+      <input type="password" id="oldPass" placeholder="Старый пароль">
+      <input type="password" id="newPass" placeholder="Новый пароль">
+      <button onclick="changePassword()">Обновить пароль</button>
+    </div>
+
+    <div class="card">
+      <h2>💎 Подписка</h2>
+      <p id="subStatus">Нет активной подписки</p>
+      <button onclick="location.href='subscribe.html'">Управлять подпиской</button>
+    </div>
+
+    <div class="card">
+      <h2>⭐ Уровень</h2>
+      <div class="level" id="userLevel">Новичок</div>
+    </div>
+
+    <div class="card">
+      <h2>🏆 Достижения</h2>
+      <div id="achievements"></div>
+    </div>
+
+    <div class="card">
+      <h2>📚 Пройденные уроки</h2>
+      <div id="completedLessons"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const currentEmail = localStorage.getItem("currentUser");
+if(!currentEmail){ window.location.href="auth.html"; }
+
+const userKey = "user_" + currentEmail;
+let userData = JSON.parse(localStorage.getItem(userKey)) || { achievements:[], lessonsCompleted:[] };
+
+let globalUser = JSON.parse(localStorage.getItem("codestart_user"));
+if(globalUser){
+  userData.achievements = [...new Set([...(userData.achievements||[]), ...(globalUser.achievements||[])])];
+  userData.lessonsCompleted = [...new Set([...(userData.lessonsCompleted||[]), ...(globalUser.completedLessons||[])])];
+  localStorage.setItem(userKey, JSON.stringify(userData));
+}
+
+function loadProfile(){
+  nameInput.value = userData.name || "";
+  emailInput.value = userData.email || "";
+
+  if(userData.subscription){
+    subStatus.innerHTML = "Активна подписка: <b>"+userData.subscription+"</b>";
+  }
+
+  loadAchievements();
+  loadLessons();
+  updateLevel();
+  loadBadge();
+}
+
+function loadBadge(){
+  const badge=document.getElementById("profileBadge");
+  if(userData.name){
+    badge.innerText=userData.name.charAt(0).toUpperCase();
+  }else{
+    badge.innerText="👤";
+  }
+}
+
+function saveProfile(){
+  userData.name = nameInput.value.trim();
+  userData.email = emailInput.value.trim();
+  localStorage.setItem(userKey, JSON.stringify(userData));
+  loadBadge();
+  alert("Сохранено!");
+}
+
+function changePassword(){
+  if(oldPass.value !== userData.password){
+    alert("Старый пароль неверный");
+    return;
+  }
+  userData.password = newPass.value;
+  localStorage.setItem(userKey, JSON.stringify(userData));
+  alert("Пароль обновлён!");
+  oldPass.value=""; newPass.value="";
+}
+
+function logout(){
+  localStorage.removeItem("currentUser");
+  window.location.href="auth.html";
+}
+
+function loadAchievements(){
+  achievements.innerHTML="";
+  if(!userData.achievements?.length){
+    achievements.innerHTML="Пока нет достижений";
+    return;
+  }
+  userData.achievements.forEach(a=>{
+    achievements.innerHTML+=`<div class="badge">${a}</div>`;
+  });
+}
+
+function loadLessons(){
+  completedLessons.innerHTML="";
+  if(!userData.lessonsCompleted?.length){
+    completedLessons.innerHTML="Уроки ещё не пройдены";
+    return;
+  }
+  userData.lessonsCompleted.forEach(l=>{
+    completedLessons.innerHTML+=`<div class="lesson-done">${l} ✅</div>`;
+  });
+}
+
+function updateLevel(){
+  const count = userData.lessonsCompleted.length;
+  let level = "Новичок";
+  if(count >= 3) level = "Ученик";
+  if(count >= 6) level = "Практик";
+  if(count >= 10) level = "Кодер";
+  if(count >= 20) level = "Разработчик";
+  userLevel.innerText = level;
+}
+
+loadProfile();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Урок 2 — Структура HTML документа | CodeStart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(0,230,118,0.08), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,188,212,0.08), transparent 40%),
+      linear-gradient(135deg,#14151c,#1b1d27 40%,#12131a);
+    color:#e6e6e6;
+}
+.top-menu{
+  position:fixed; top:0; left:0; width:100%;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:15px 30px;
+  background:rgba(10,12,18,0.85);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  z-index:1000;
+}
+.logo{
+  font-weight:700;
+  font-size:22px;
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.menu-links{display:flex;gap:14px;}
+.menu-links a{
+  text-decoration:none;
+  color:#cfcfcf;
+  font-weight:600;
+  padding:8px 16px;
+  border-radius:10px;
+  border:1px solid transparent;
+  transition:0.25s;
+}
+.menu-links a:hover,
+.menu-links a.active{
+  color:#00e676;
+  border:1px solid #00e676;
+  background:rgba(0,230,118,0.12);
+}
+
+section{max-width:1000px;margin:auto;padding:130px 20px 60px;}
+h1{text-align:center;font-size:36px;margin-bottom:10px;}
+.progress{text-align:center;color:#8a8f98;margin-bottom:30px;}
+
+.lesson-box{
+    background:linear-gradient(145deg,#1c1f2b,#151822);
+    padding:35px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.05);
+    box-shadow:0 15px 40px rgba(0,0,0,0.45);
+    line-height:1.9;
+    font-size:17px;
+}
+
+.tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.tab-btn{
+    padding:8px 14px;border-radius:8px;border:1px solid #2a2d3a;
+    cursor:pointer;background:#1a1d29;color:#cfcfcf;
+}
+.tab-btn.active{border-color:#00e676;color:#00e676;}
+.tab-content{display:none;margin-top:10px;}
+.tab-content.active{display:block;}
+
+pre{
+    background:#0f1117;padding:16px;border-radius:12px;
+    color:#00ff88;border:1px solid rgba(0,230,118,0.25);
+    overflow:auto;
+}
+
+textarea{
+    width:100%;height:200px;background:#0f1117;color:#00ff88;
+    border:2px solid #1f2230;border-radius:12px;padding:15px;
+    font-family:monospace;font-size:14px;margin-top:15px;
+}
+button{
+    background:linear-gradient(45deg,#00e676,#00c853);
+    border:none;padding:12px 18px;border-radius:10px;
+    font-weight:bold;cursor:pointer;margin-top:12px;
+}
+button:hover{transform:scale(1.05);}
+
+#previewWrapper{display:none;margin-top:20px;border-radius:12px;overflow:hidden;max-width:500px;}
+.browser-bar{background:#2d2f36;padding:6px 10px;display:flex;gap:6px;}
+.dot{width:10px;height:10px;border-radius:50%;}
+.red{background:#ff5f56;} .yellow{background:#ffbd2e;} .green{background:#27c93f;}
+#previewBox{background:#fff;color:#111;padding:20px;min-height:100px;}
+
+#console{background:#000;color:#00ff88;padding:15px;margin-top:15px;border-radius:8px;font-family:monospace;}
+.tip{color:#00bcd4;} .bad{color:#ff5252;} .ok{color:#4CAF50;} .win{color:#FFD700;}
+
+#achievementPopup{
+    position:fixed;top:100px;right:20px;
+    background:linear-gradient(45deg,#ffd700,#ff9800);
+    color:#000;padding:15px 20px;border-radius:10px;
+    font-weight:bold;display:none;z-index:2000;
+}
+.next-lesson{
+  display:inline-block;
+  margin-top:20px;
+  text-decoration:none;
+  background:linear-gradient(45deg,#00bcd4,#2196f3);
+  padding:12px 18px;
+  border-radius:10px;
+  color:white;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-menu">
+  <div class="logo">CodeStart</div>
+  <div class="menu-links">
+    <a href="index.html">Главная</a>
+    <a href="lesson.html" class="active">Обучение</a>
+    <a href="subscribe.html">Подписка</a>
+    <a href="#" onclick="openProfile()">Профиль</a>
+  </div>
+</div>
+
+<div id="achievementPopup">🏆 Новое достижение!</div>
+
+<section>
+<h1>Урок 2: Полная структура HTML страницы</h1>
+<div class="progress">Шаг 2 из 10 • Ты уже строишь настоящий сайт</div>
+
+<div class="lesson-box">
+
+<div class="tabs">
+  <div class="tab-btn active" onclick="openTab(0)">Основа документа</div>
+  <div class="tab-btn" onclick="openTab(1)">Head и Body простыми словами</div>
+  <div class="tab-btn" onclick="openTab(2)">Практика</div>
+</div>
+
+<div class="tab-content active">
+  <h2>🧱 Из каких частей состоит ЛЮБОЙ сайт</h2>
+  <p>Каждая страница в интернете строится по одинаковым правилам. Это как фундамент дома — без него ничего не стоит.</p>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt; ... &lt;/head&gt;
+  &lt;body&gt; ... &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+  <p><b>&lt;!DOCTYPE html&gt;</b> — говорит браузеру: «это современный HTML5»</p>
+  <p><b>&lt;html&gt;</b> — обёртка ВСЕЙ страницы</p>
+  <p><b>&lt;head&gt;</b> — служебная часть (настройки сайта)</p>
+  <p><b>&lt;body&gt;</b> — всё что видит человек</p>
+
+  <p class="tip">💡 Запомни: если нет body — пользователь ничего не увидит!</p>
+</div>
+
+<div class="tab-content">
+  <h2>🧠 Что именно лежит внутри head и body</h2>
+
+  <p>Внутри <b>&lt;head&gt;</b> находится информация для браузера, но не для пользователя.</p>
+
+<pre>
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Мой сайт&lt;/title&gt;
+&lt;/head&gt;
+</pre>
+
+  <p><b>meta charset</b> — чтобы текст на русском не превратился в кракозябры</p>
+  <p><b>title</b> — название вкладки сверху в браузере</p>
+
+  <p>А вот внутри <b>&lt;body&gt;</b> находится ВСЁ, что мы изучали в прошлом уроке:</p>
+
+<pre>
+&lt;body&gt;
+  &lt;h1&gt;Заголовок&lt;/h1&gt;
+  &lt;p&gt;Текст&lt;/p&gt;
+&lt;/body&gt;
+</pre>
+
+  <p class="tip">💡 Всё что человек видит на сайте — всегда внутри body</p>
+</div>
+
+<div class="tab-content">
+  <h2>💻 Практика</h2>
+  <p>Создай правильный каркас страницы и добавь заголовок и текст.</p>
+  <p class="tip">Вот пример ПРАВИЛЬНОЙ структуры страницы 👇</p>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Мой первый сайт&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;h1&gt;Привет, мир!&lt;/h1&gt;
+    &lt;p&gt;Я изучаю HTML на CodeStart&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p class="tip">💡 Теперь попробуй повторить эту структуру сам ниже</p>
+
+
+  <textarea id="codeInput"></textarea>
+  <button onclick="showPreview()">👀 Посмотреть результат</button>
+  <button onclick="checkCode()">✔ Проверить код</button>
+
+  <div id="previewWrapper">
+    <div class="browser-bar">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+    <div id="previewBox"></div>
+  </div>
+
+  <div id="console"></div>
+  <a href="lesson3.html" class="next-lesson">➡ Перейти к Уроку 3</a>
+</div>
+
+</div>
+</section>
+
+<script>
+function openTab(i){
+  document.querySelectorAll(".tab-btn").forEach((b,idx)=>b.classList.toggle("active",idx===i));
+  document.querySelectorAll(".tab-content").forEach((c,idx)=>c.classList.toggle("active",idx===i));
+}
+
+function showPreview(){
+  const code=document.getElementById("codeInput").value;
+  document.getElementById("previewWrapper").style.display="block";
+  document.getElementById("previewBox").innerHTML=code;
+}
+
+function log(msg,cls=""){document.getElementById("console").innerHTML+=`<div class="${cls}">${msg}</div>`;}
+
+function checkCode(){
+  const code=document.getElementById("codeInput").value.toLowerCase();
+  const consoleBox=document.getElementById("console");
+  consoleBox.innerHTML="";
+
+  log("Подсказка: страница должна иметь полный каркас HTML 👆","tip");
+
+  let ok=0;
+  if(code.includes("<!doctype")){log("✔ Документ объявлен правильно","ok");ok++;} else log("✖ Нет DOCTYPE","bad");
+  if(code.includes("<html")){log("✔ Есть html — корень страницы","ok");ok++;} else log("✖ Нет html","bad");
+  if(code.includes("<head")){log("✔ Есть head — настройки сайта","ok");ok++;} else log("✖ Нет head","bad");
+  if(code.includes("<title")){log("✔ Есть title — имя вкладки","ok");ok++;} else log("✖ Нет title","bad");
+  if(code.includes("<body")){log("✔ Есть body — видимая часть","ok");ok++;} else log("✖ Нет body","bad");
+  if(code.includes("<h1")){log("✔ Есть заголовок","ok");ok++;} else log("✖ Нет h1","bad");
+  if(code.includes("<p")){log("✔ Есть текст","ok");ok++;} else log("✖ Нет p","bad");
+
+  if(ok>=6){completeLesson();}
+}
+
+function completeLesson(){
+  const email = localStorage.getItem("currentUser");
+  if(!email) return;
+
+  const key = "user_" + email;
+  let user = JSON.parse(localStorage.getItem(key));
+  if(!user) return;
+
+  // ЕСЛИ УРОК ЕЩЁ НЕ ПРОЙДЕН
+  if(!user.lessonsCompleted.includes("HTML Урок 2")){
+      user.lessonsCompleted.push("HTML Урок 2");
+      user.xp += 60;
+
+      const achievement = "🏗 Мастер структуры HTML";
+      if(!user.achievements.includes(achievement)){
+          user.achievements.push(achievement);
+          document.getElementById("achievementPopup").style.display = "block";
+      }
+
+      // 💚 ВОТ ЭТО СВЯЗЫВАЕТ УРОК СО СТРАНИЦЕЙ LESSON
+      localStorage.setItem("completed_html2", "true");
+
+      log("🎉 Урок 2 пройден! Структура HTML теперь твоя сильная сторона!", "win");
+  } else {
+      log("ℹ️ Этот урок уже был пройден ранее", "tip");
+  }
+
+  localStorage.setItem(key, JSON.stringify(user));
+}
+function checkCode(){
+if(ok === 5){
+   completeLesson();
+}
+
+
+function openProfile(){
+  window.location.href = localStorage.getItem("currentUser")
+    ? "profile.html"
+    : "auth.html";
+}
+</script>
+
+</body>
+</html>
