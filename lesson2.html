@@ -207,77 +207,35 @@ button:hover{transform:scale(1.05);}
 </section>
 
 <script>
-function openTab(i){
-  document.querySelectorAll(".tab-btn").forEach((b,idx)=>b.classList.toggle("active",idx===i));
-  document.querySelectorAll(".tab-content").forEach((c,idx)=>c.classList.toggle("active",idx===i));
+document.addEventListener("DOMContentLoaded", function () {
+
+// ===== ВКЛАДКИ =====
+window.openTab = function(tabName){
+  document.querySelectorAll(".tab-content").forEach(t=>t.style.display="none");
+  document.getElementById(tabName).style.display="block";
 }
 
-function showPreview(){
-  const code=document.getElementById("codeInput").value;
-  document.getElementById("previewWrapper").style.display="block";
-  document.getElementById("previewBox").innerHTML=code;
-}
+// ===== ПРОВЕРКА КОДА =====
+window.checkCode = function(){
+  let code = document.getElementById("codeInput").value;
+  let result = document.getElementById("result");
 
-function log(msg,cls=""){document.getElementById("console").innerHTML+=`<div class="${cls}">${msg}</div>`;}
-
-function checkCode(){
-  const code=document.getElementById("codeInput").value.toLowerCase();
-  const consoleBox=document.getElementById("console");
-  consoleBox.innerHTML="";
-
-  log("Пример правильной структуры выше — сверяйся с ним 👆","tip");
-
-  let ok=0;
-  if(code.includes("<html")){log("✔ Есть html — страница начинается правильно","ok");ok++;} else log("✖ Нет html","bad");
-  if(code.includes("<body")){log("✔ Есть body — контент будет виден","ok");ok++;} else log("✖ Нет body","bad");
-  if(code.includes("<h1")){log("✔ Есть заголовок","ok");ok++;} else log("✖ Нет h1","bad");
-  if(code.includes("<p")){log("✔ Есть текст","ok");ok++;} else log("✖ Нет p","bad");
-  if(code.includes("<button")){log("✔ Есть кнопка","ok");ok++;} else log("✖ Нет button","bad");
-
-  if(ok===5){completeLesson();}
-}
-
-function completeLesson(){
-  const email = localStorage.getItem("currentUser");
-  if(!email) return;
-
-  const key = "user_" + email;
-  let user = JSON.parse(localStorage.getItem(key));
-  if(!user) return;
-
-  if(!user.lessonsCompleted.includes("HTML Урок 1")){
-      user.lessonsCompleted.push("HTML Урок 1");
-      user.xp += 50;
-
-      const achievement = "🏆 Первая HTML страница";
-      if(!user.achievements.includes(achievement)){
-          user.achievements.push(achievement);
-          document.getElementByById("achievementPopup").style.display = "block";
-      }
-
-      // 💚 ГОВОРИМ СТРАНИЦЕ LESSON ЧТО УРОК ПРОЙДЕН
-      localStorage.setItem("completed_html1", "true");
-
-      log("🎉 Урок 1 пройден! Отличное начало!", "win");
+  if(code.includes("<!DOCTYPE html>") && code.includes("<html") && code.includes("<body")){
+    result.innerHTML = "✅ Отлично! Структура документа верная!";
+    result.style.color = "#00e676";
+    localStorage.setItem("completed_html1", "true");
   } else {
-      log("ℹ️ Этот урок уже был пройден ранее", "tip");
+    result.innerHTML = "❌ Проверь структуру HTML документа";
+    result.style.color = "red";
   }
+}
 
-  localStorage.setItem(key, JSON.stringify(user));
-}
-function checkCode(){
-if(ok === 5){
-   completeLesson();
-}
-}
-function openProfile(){
-  window.location.href = localStorage.getItem("currentUser")
-    ? "profile.html"
-    : "auth.html";
-}
-</script>}
+});
+</script>
+
 
 </body>
 </html>
+
 
 
