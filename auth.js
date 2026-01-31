@@ -1,73 +1,139 @@
 let isLogin = false;
 
-function toggleMode() {
-    isLogin = !isLogin;
+/* =========================
+   ПЕРЕКЛЮЧЕНИЕ РЕЖИМА
+========================= */
+function setMode(login){
+  isLogin = login;
 
-    document.getElementById("formTitle").innerText = isLogin ? "Вход" : "Регистрация";
-    document.querySelector(".switch").innerText = isLogin
-        ? "Нет аккаунта? Зарегистрироваться"
-        : "Уже есть аккаунт? Войти";
+  const title = document.getElementById("formTitle");
+  const nameField = document.getElementById("name");
+  const registerTab = document.getElementById("registerTab");
+  const loginTab = document.getElementById("loginTab");
+  const switchText = document.querySelector(".switch-link");
+  const errorBox = document.getElementById("errorBox");
 
-    document.getElementById("name").style.display = isLogin ? "none" : "block";
+  title.innerText = login ? "Вход" : "Регистрация";
+  nameField.style.display = login ? "none" : "block";
+
+  registerTab.classList.toggle("active", !login);
+  loginTab.classList.toggle("active", login);
+
+  switchText.innerText = login
+    ? "Нет аккаунта? Зарегистрироваться"
+    : "Уже есть аккаунт? Войти";
+
+  errorBox.innerText = "";
 }
 
-function submitAuth() {
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const password = document.getElementById("password").value.trim();
+function toggleMode(){
+  setMode(!isLogin);
+}
 
-    if (!email || !password || (!isLogin && !name)) {
-        alert("Заполни все поля");
-        return;
+/* =========================
+   ВАЛИДАЦИЯ
+========================= */
+function isValidEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/* =========================
+   ОСНОВНАЯ КНОПКА (ВХОД/РЕГ)
+========================= */
+function submitAuth(){
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const passInput = document.getElementById("password");
+  const errorBox = document.getElementById("errorBox");
+
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passInput.value.trim();
+
+  errorBox.innerText = "";
+
+  if(!email || !password || (!isLogin && !name)){
+    errorBox.innerText = "Заполни все поля";
+    return;
+  }
+
+  if(!isValidEmail(email)){
+    errorBox.innerText = "Введите корректный email";
+    return;
+  }
+
+  const userKey = "user_" + email;
+  let existingUser = JSON.parse(localStorage.getItem(userKey));
+
+  /* ===== РЕГИСТРАЦИЯ ===== */
+  if(!isLogin){
+    if(password.length < 6){
+      errorBox.innerText = "Пароль минимум 6 символов";
+      return;
     }
 
-    // ===== ПРОВЕРКА СЛОЖНОСТИ ПАРОЛЯ =====
-    if (!isLogin) {
-        if (password.length < 6) {
-            alert("Пароль должен быть минимум 6 символов");
-            return;
-        }
-        if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
-            alert("Пароль должен содержать хотя бы 1 заглавную букву и 1 цифру");
-            return;
-        }
+    if(existingUser){
+      errorBox.innerText = "Пользователь уже существует";
+      return;
     }
 
-    const userKey = "user_" + email;
-    let existingUser = JSON.parse(localStorage.getItem(userKey));
+    const newUser = {
+      name,
+      email,
+      password,
+      xp: 0,
+      level: 1,
+      achievements: [],
+      lessonsCompleted: []
+    };
 
-    // ===== РЕГИСТРАЦИЯ =====
-    if (!isLogin) {
-        if (existingUser) {
-            alert("Пользователь уже существует");
-            return;
-        }
+    localStorage.setItem(userKey, JSON.stringify(newUser));
+    localStorage.setItem("currentUser", email);
 
-        const newUser = {
-            name: name,
-            email: email,
-            password: password,
-            achievements: [],
-            lessonsCompleted: [],
-            xp: 0,
-            level: 1,
-            subscription: null
-        };
+    window.location.href = "profile.html";
+    return;
+  }
 
-        localStorage.setItem(userKey, JSON.stringify(newUser));
-        localStorage.setItem("currentUser", email);
+  /* ===== ВХОД ===== */
+  if(!existingUser || existingUser.password !== password){
+    errorBox.innerText = "Неверный email или пароль";
+    return;
+  }
 
-        window.location.href = "profile.html";
-    }
+  localStorage.setItem("currentUser", email);
+  window.location.href = "profile.html";
+}
 
-    // ===== ВХОД =====
-    else {
-        if (!existingUser || existingUser.password !== password) {
-            alert("Неверный email или пароль");
-            return;
-        }
+/* =========================
+   ЗАЩИТА СТРАНИЦ
+========================= */
+function requireAuth(){
+  if(!localStorage.getItem("currentUser")){
+    window.location.href = "auth.html";
+  }
+}
 
-        localStorage.setItem("currentUser", email);
-        window.location.href = "profile.html";
-    }
+/* =========================
+   ПОЛУЧИТЬ ПОЛЬЗОВАТЕЛЯ
+========================= */
+function getCurrentUser(){
+  const email = localStorage.getItem("currentUser");
+  if(!email) return null;
+  return JSON.parse(localStorage.getItem("user_" + email));
+}
+
+/* =========================
+   ВЫХОД
+========================= */
+function logout(){
+  localStorage.removeItem("currentUser");
+  window.location.href = "auth.html";
+}
+
+function openPrivacy(){
+  alert("Политика конфиденциальности:\n\nМы храним только email, имя и прогресс обучения. Данные используются только внутри платформы CodeStart и не передаются третьим лицам.");
+}
+
+function openTerms(){
+  alert("Пользовательское соглашение:\n\nИспользуя платформу CodeStart, вы соглашаетесь использовать материалы только в образовательных целях. Администрация не несёт ответственности за неправильное использование материалов.");
 }
