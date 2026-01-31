@@ -9,7 +9,10 @@
 body{
   margin:0;
   font-family:'Inter',sans-serif;
-  background:linear-gradient(135deg,#1e1f26,#232530);
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,230,118,0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0,188,212,0.08), transparent 40%),
+    linear-gradient(135deg,#14151c,#1b1d27 40%,#12131a);
   color:#fff;
   display:flex;
   justify-content:center;
@@ -18,54 +21,103 @@ body{
 }
 
 .auth-box{
-  background:#2a2c36;
+  background:linear-gradient(145deg,#1c1f2b,#151822);
   padding:40px;
-  border-radius:16px;
-  width:340px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.5);
-  text-align:center;
+  border-radius:18px;
+  width:380px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.05);
 }
 
-h2{margin-bottom:20px;}
+h2{text-align:center;margin-bottom:20px;font-weight:700;}
+
+.mode-switch{
+  display:flex;
+  margin-bottom:20px;
+  background:#11131a;
+  border-radius:10px;
+  padding:4px;
+}
+
+.mode-switch button{
+  flex:1;
+  padding:8px;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  background:transparent;
+  color:#aaa;
+}
+
+.mode-switch button.active{
+  background:linear-gradient(45deg,#00e676,#00bcd4);
+  color:#000;
+}
 
 input{
   width:100%;
   padding:12px;
   margin:8px 0;
-  border-radius:8px;
-  border:none;
-  background:#1c1e26;
-  color:#fff;
+  border-radius:10px;
+  border:1px solid rgba(0,230,118,0.4);
+  background:#0f1117;
+  color:#00e676;
   font-size:14px;
-}
-
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  font-weight:600;
-  background:linear-gradient(45deg,#00e676,#00c853);
-  color:#000;
-  cursor:pointer;
-  transition:0.2s;
-  margin-top:10px;
-}
-
-button:hover{transform:scale(1.05);}
-
-.switch{
-  margin-top:15px;
-  font-size:14px;
-  color:#aaa;
-  cursor:pointer;
+  outline:none;
 }
 
 .hint{
   font-size:12px;
-  color:#888;
-  margin-top:8px;
+  color:#8a8f98;
+  margin-top:4px;
+  margin-bottom:8px;
 }
+
+.main-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  background:linear-gradient(45deg,#00e676,#00c853);
+  color:#000;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.switch-link{
+  text-align:center;
+  margin-top:15px;
+  font-size:14px;
+  color:#00bcd4;
+  cursor:pointer;
+}
+
+.error{
+  color:#ff5252;
+  font-size:13px;
+  margin-bottom:8px;
+  text-align:center;
+  min-height:18px;
+}
+.policy-text{
+  font-size:12px;
+  color:#8a8f98;
+  text-align:center;
+  margin-top:15px;
+  line-height:1.5;
+}
+
+.policy-text span{
+  color:#00e676;
+  cursor:pointer;
+}
+
+.policy-text span:hover{
+  text-decoration:underline;
+}
+
 </style>
 </head>
 
@@ -74,18 +126,32 @@ button:hover{transform:scale(1.05);}
 <div class="auth-box">
   <h2 id="formTitle">Регистрация</h2>
 
+  <div class="mode-switch">
+    <button id="registerTab" class="active" onclick="setMode(false)">Регистрация</button>
+    <button id="loginTab" onclick="setMode(true)">Вход</button>
+  </div>
+
+  <div id="errorBox" class="error"></div>
+
   <input type="text" id="name" placeholder="Имя">
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Пароль">
 
   <div class="hint">Пароль минимум 6 символов</div>
 
-  <button onclick="submitAuth()">Продолжить</button>
-
-  <div class="switch" onclick="toggleMode()">Уже есть аккаунт? Войти</div>
+  <button class="main-btn" onclick="submitAuth()">Продолжить</button>
+  <div class="policy-text">
+  Нажимая «Продолжить», вы соглашаетесь с
+  <span onclick="openPrivacy()">Политикой конфиденциальности</span>
+  и <span onclick="openTerms()">Пользовательским соглашением</span>.
+  Ваши данные не передаются третьим лицам и используются только для работы платформы CodeStart.
 </div>
 
-<!-- ПОДКЛЮЧАЕМ ЛОГИКУ -->
+
+  <div class="switch-link" onclick="toggleMode()">Уже есть аккаунт? Войти</div>
+</div>
+
+<!-- ✅ Только один JS файл -->
 <script src="auth.js"></script>
 
 </body>
