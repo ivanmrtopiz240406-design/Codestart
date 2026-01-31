@@ -117,6 +117,38 @@ input{
 .policy-text span:hover{
   text-decoration:underline;
 }
+.agree-box{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:13px;
+  color:#aaa;
+  margin-top:12px;
+  cursor:pointer;
+}
+
+.agree-box input{
+  margin-top:3px;
+  accent-color:#00e676;
+}
+
+.agree-box b{
+  color:#00e676;
+  cursor:pointer;
+}
+
+.agree-box b:hover{
+  text-decoration:underline;
+}
+
+.policy-text{
+  font-size:12px;
+  color:#8a8f98;
+  text-align:center;
+  margin-top:10px;
+  line-height:1.5;
+}
+
 
 </style>
 </head>
@@ -140,12 +172,15 @@ input{
   <div class="hint">Пароль минимум 6 символов</div>
 
   <button class="main-btn" onclick="submitAuth()">Продолжить</button>
-  <div class="policy-text">
-  Нажимая «Продолжить», вы соглашаетесь с
-  <span onclick="openPrivacy()">Политикой конфиденциальности</span>
-  и <span onclick="openTerms()">Пользовательским соглашением</span>.
-  Ваши данные не передаются третьим лицам и используются только для работы платформы CodeStart.
+  <label class="agree-box">
+  <input type="checkbox" id="agree">
+  <span>Я принимаю <b onclick="openPrivacy()">Политику конфиденциальности</b> и <b onclick="openTerms()">Пользовательское соглашение</b></span>
+</label>
+
+<div class="policy-text">
+  Ваши данные используются только для работы платформы CodeStart и не передаются третьим лицам.
 </div>
+
 
 
   <div class="switch-link" onclick="toggleMode()">Уже есть аккаунт? Войти</div>
